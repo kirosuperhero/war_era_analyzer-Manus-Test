@@ -15,6 +15,25 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ========== نظام حفظ التنبيهات المرسلة ==========
+SENT_ALERTS_FILE = "data/sent_alerts.json"
+
+def load_sent_alerts():
+    """تحميل التنبيهات اللي اتبعت قبل كدة"""
+    if os.path.exists(SENT_ALERTS_FILE):
+        try:
+            with open(SENT_ALERTS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return []
+    return []
+
+def save_sent_alerts(sent):
+    """حفظ التنبيهات اللي اتبعت"""
+    os.makedirs("data", exist_ok=True)
+    with open(SENT_ALERTS_FILE, 'w') as f:
+        json.dump(sent, f, indent=2)
+
 # ========== دالة الضريبة ==========
 def add_tax(price):
     """إضافة 1% ضريبة على السعر"""
@@ -40,6 +59,31 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 YOUR_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY5Y2VlY2Y1MTk3Zjg0NWZjOWZlZGU1YyJ9LCJpYXQiOjE3NzUxNjg3NTcsImV4cCI6MTc3Nzc2MDc1N30.nIKi8ohQAYsAVXQL9_rlRUr93TDg-G-DVOCQOrRdOtY"
+
+# ========== إعدادات التليجرام ==========
+TELEGRAM_BOT_TOKEN = "8261610629:AAFs-el5LK236x1xkDuUM8k-6NOi81X4FU8"  # حط التوكن اللي أخدته من BotFather
+TELEGRAM_CHAT_ID = "1690550033"      # حط الـ ID اللي أخدته من userinfobot
+
+def send_telegram_alert(title, message, price=None, profit=None):
+    """إرسال تنبيه للتليجرام"""
+    text = f"🔔 *{title}*\n{message}"
+    if price:
+        text += f"\n💰 السعر بعد الضريبة: ${price:.2f}"
+    if profit:
+        text += f"\n💎 الربح المتوقع: +${profit:.2f}"
+    
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    try:
+        import requests
+        response = requests.post(url, json={
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": text,
+            "parse_mode": "Markdown"
+        }, timeout=5)
+        return response.status_code == 200
+    except Exception as e:
+        print(f"Telegram error: {e}")
+        return False
 
 # ========== إعدادات الأصناف ==========
 ITEM_CATEGORIES = {
@@ -500,6 +544,24 @@ with tab1:
         disabled=True
     )
 
+# التحقق من العناصر الجديدة (أقل من ساعة)
+    recent_in_table = df_sorted[df_sorted['createdAt'].apply(lambda x: 
+        (datetime.now().astimezone() - datetime.fromisoformat(x.replace('Z', '+00:00'))).total_seconds() / 3600 <= 1
+    )]
+    
+    if len(recent_in_table) > 0:
+        sent_alerts = load_sent_alerts()
+        for _, item in recent_in_table.iterrows():
+            alert_id = f"table_{item_category}_{item['main_value']}_{item['secondary_value']}_{item['price']}"
+            if alert_id not in sent_alerts:
+                sent_alerts.append(alert_id)
+                send_telegram_alert(
+                    title="🆕 عنصر جديد في السوق!",
+                    message=f"{item_category}\n🔍 {item['main_name']}: {item['main_value']} | {item['secondary_name']}: {item['secondary_value']}",
+                    price=add_tax(item['price']),
+                    profit=None
+                )
+        save_sent_alerts(sent_alerts)
 # TAB 2: أفضل الصفقات
 with tab2:
     st.subheader("🏆 أفضل 10 صفقات (أعلى قيمة مقابل السعر)")
@@ -725,7 +787,6 @@ with tab4:
                 st.dataframe(display_similar, column_config={"price": "$"}, use_container_width=True)
         else:
             st.warning("لا توجد عناصر مشابهة كافية للتحليل (أقل من 2)")
-
 # TAB 5: صائد الأرباح الشامل - النسخة المصححة
 with tab5:
     st.subheader("🏆 صائد الأرباح الشامل")
@@ -739,7 +800,7 @@ with tab5:
             index=2
         )
     with col2:
-        min_profit_usd = st.number_input("الحد الأدنى للربح المتوقع ($)", 1, 500, 20)
+        min_profit_usd = st.number_input("الحد الأدنى للربح المتوقع ($)", 1, 500, 10)
     
     time_map_profit = {"آخر ساعة": 1, "آخر 6 ساعات": 6, "آخر 12 ساعة": 12, "آخر 24 ساعة": 24, "آخر 3 أيام": 72, "الكل": 0}
     hours_limit_profit = time_map_profit[comparison_time]
@@ -751,7 +812,7 @@ with tab5:
         
         for idx, (cat_name, cat_config) in enumerate(ITEM_CATEGORIES.items()):
             temp_code = cat_config["code"]
-            temp_items = fetch_all_items(temp_code, max_pages=5)  # زودت الصفحات عشان نجيب عناصر أكثر
+            temp_items = fetch_all_items(temp_code, max_pages=5)
             
             if temp_items:
                 now = datetime.now().astimezone()
@@ -761,9 +822,8 @@ with tab5:
                         created_at = datetime.fromisoformat(item['createdAt'].replace('Z', '+00:00'))
                         hours_diff = (now - created_at).total_seconds() / 3600
                         
-                        # فلتر الوقت من البداية
                         if hours_limit_profit > 0 and hours_diff > hours_limit_profit:
-                            continue  # تخطى العناصر القديمة
+                            continue
                         
                         quality = calculate_quality_score(item['skills'], cat_config)
                         main_val = get_main_value(item['skills'], cat_config)
@@ -771,7 +831,6 @@ with tab5:
                         main_name = get_main_name(cat_config)
                         sec_name = get_secondary_name(cat_config)
                         
-                        # تجميع مؤقت للتحليل
                         all_results.append({
                             'category': cat_name,
                             'price': item['price'],
@@ -793,14 +852,10 @@ with tab5:
         progress_bar.empty()
     
     if all_results:
-        # تحويل النتائج لـ DataFrame
         df_temp = pd.DataFrame(all_results)
-        
-        # حساب المتوسط لكل فئة وجودة
         df_temp['quality_group'] = (df_temp['quality'] // 10) * 10
         df_temp['value_group'] = df_temp['main_value'].apply(lambda x: round(x / 10) * 10)
         
-        # حساب الربح المتوقع
         profit_results = []
         
         for (cat, quality_group), group in df_temp.groupby(['category', 'quality_group']):
@@ -832,10 +887,41 @@ with tab5:
             df_results = pd.DataFrame(profit_results)
             df_results = df_results.sort_values('expected_profit', ascending=False).head(20)
             
+            # التحقق من الصفقات الجديدة (أقل من ساعة)
+            recent_deals = df_results[df_results['hours_ago'] <= 1]
+            
+            if len(recent_deals) > 0:
+                # تحميل التنبيهات السابقة
+                sent_alerts = load_sent_alerts()
+                new_alerts_to_send = []
+                
+                # تحديد التنبيهات الجديدة فقط
+                for _, alert in recent_deals.iterrows():
+                    alert_id = f"{alert['category']}_{alert['main_value']}_{alert['secondary_value']}_{alert['price']}"
+                    if alert_id not in sent_alerts:
+                        new_alerts_to_send.append(alert)
+                        sent_alerts.append(alert_id)
+                
+                # حفظ التنبيهات الجديدة
+                if new_alerts_to_send:
+                    save_sent_alerts(sent_alerts)
+                    
+                    # تنبيه مرئي
+                    st.toast(f"🔔 {len(new_alerts_to_send)} صفقة ساخنة جديدة!", icon="🔥")
+                    st.balloons()
+                    
+                    # إرسال تنبيه تليجرام (أول 3 بس)
+                    for alert in new_alerts_to_send[:3]:
+                        send_telegram_alert(
+                            title="🔥 صفقة ساخنة جديدة!",
+                            message=f"{alert['category']}\n🔍 {alert['main_name']}: {alert['main_value']} | {alert['secondary_name']}: {alert['secondary_value']}",
+                            price=add_tax(alert['price']),
+                            profit=alert['expected_profit']
+                        )
+                
             st.success(f"🎯 {len(df_results)} فرصة ربح (آخر {comparison_time})")
             
             for i, row in df_results.iterrows():
-                # تحديد لون حسب الحداثة
                 if row['hours_ago'] <= 1:
                     freshness_icon = "🔥🔥"
                     freshness_text = "جديد جداً (أقل من ساعة)"
@@ -869,6 +955,7 @@ with tab5:
     else:
         st.info(f"❌ لا توجد بيانات كافية في آخر {comparison_time}")
         
+       
 # ========== التوصية النهائية ==========
 st.divider()
 st.subheader("🎯 التوصية النهائية")

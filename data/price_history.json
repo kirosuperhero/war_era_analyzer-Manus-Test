@@ -439,5 +439,14 @@
       "main_value": 221,
       "secondary_value": 48
     }
+  ],
+  "jet_A255_C50": [
+    {
+      "price": 420.0,
+      "time": "2026-04-19T23:20:05.070594",
+      "user": "6821d53f",
+      "main_value": 256,
+      "secondary_value": 50
+    }
   ]
 }
