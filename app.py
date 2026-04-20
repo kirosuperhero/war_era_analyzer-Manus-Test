@@ -34,6 +34,51 @@ def save_sent_alerts(sent):
     with open(SENT_ALERTS_FILE, 'w') as f:
         json.dump(sent, f, indent=2)
 
+# ========== تحليل المبيعات الفعلية ==========
+SALES_CACHE_FILE = "data/sales_cache.json"
+
+def load_sales_cache():
+    """تحميل بيانات المبيعات المخزنة"""
+    if os.path.exists(SALES_CACHE_FILE):
+        try:
+            with open(SALES_CACHE_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+def save_sales_cache(cache):
+    """حفظ بيانات المبيعات"""
+    os.makedirs("data", exist_ok=True)
+    with open(SALES_CACHE_FILE, 'w') as f:
+        json.dump(cache, f, indent=2)
+
+def get_average_sale_price(item_code, main_value, days_back=7):
+    """جلب متوسط سعر البيع الفعلي لنفس النوع"""
+    cache = load_sales_cache()
+    
+    if item_code not in cache:
+        return None
+    
+    now = datetime.now().astimezone()
+    valid_prices = []
+    
+    for sale in cache[item_code]:
+        try:
+            sale_time = datetime.fromisoformat(sale['time'].replace('Z', '+00:00'))
+            hours_diff = (now - sale_time).total_seconds() / 3600
+            
+            if hours_diff <= days_back * 24:
+                if abs(sale['main_value'] - main_value) <= 10:
+                    if sale['price'] > 0:
+                        valid_prices.append(sale['price'])
+        except:
+            continue
+    
+    if valid_prices:
+        return sum(valid_prices) / len(valid_prices)
+    return None
+
 # ========== دالة الضريبة ==========
 def add_tax(price):
     """إضافة 1% ضريبة على السعر"""
@@ -710,6 +755,23 @@ with tab4:
             max_price = similar_items['price'].max()
             count = len(similar_items)
             
+                        # جلب متوسط سعر البيع الفعلي
+            actual_avg_price = get_average_sale_price(item_code, selected['main_value'], 7)
+            
+            if actual_avg_price and actual_avg_price > 0:
+                st.info(f"📊 **متوسط سعر البيع الفعلي (آخر 7 أيام):** ${actual_avg_price:.2f}")
+                
+                if selected['price'] <= actual_avg_price * 0.8:
+                    st.success("✅ **فرصة ممتازة!** السعر أقل بـ 20% من متوسط البيع الفعلي")
+                elif selected['price'] <= actual_avg_price:
+                    st.success("👍 سعر جيد - أقل من متوسط البيع الفعلي")
+                elif selected['price'] <= actual_avg_price * 1.1:
+                    st.warning("⚠️ سعر مقبول - قريب من متوسط البيع الفعلي")
+                else:
+                    st.error("❌ سعر مرتفع - أعلى من متوسط البيع الفعلي")
+            else:
+                st.caption("📊 (بيانات المبيعات الفعلية غير متوفرة بعد، جاري التجميع...)")
+                
             st.subheader("📊 إحصائيات السوق للعناصر المشابهة")
             
             col1, col2, col3, col4 = st.columns(4)
