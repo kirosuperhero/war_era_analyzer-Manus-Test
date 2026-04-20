@@ -19,7 +19,6 @@ st.set_page_config(
 SENT_ALERTS_FILE = "data/sent_alerts.json"
 
 def load_sent_alerts():
-    """تحميل التنبيهات اللي اتبعت قبل كدة"""
     if os.path.exists(SENT_ALERTS_FILE):
         try:
             with open(SENT_ALERTS_FILE, 'r') as f:
@@ -29,7 +28,6 @@ def load_sent_alerts():
     return []
 
 def save_sent_alerts(sent):
-    """حفظ التنبيهات اللي اتبعت"""
     os.makedirs("data", exist_ok=True)
     with open(SENT_ALERTS_FILE, 'w') as f:
         json.dump(sent, f, indent=2)
@@ -38,7 +36,6 @@ def save_sent_alerts(sent):
 SALES_CACHE_FILE = "data/sales_cache.json"
 
 def load_sales_cache():
-    """تحميل بيانات المبيعات المخزنة"""
     if os.path.exists(SALES_CACHE_FILE):
         try:
             with open(SALES_CACHE_FILE, 'r') as f:
@@ -48,13 +45,12 @@ def load_sales_cache():
     return {}
 
 def save_sales_cache(cache):
-    """حفظ بيانات المبيعات"""
     os.makedirs("data", exist_ok=True)
     with open(SALES_CACHE_FILE, 'w') as f:
         json.dump(cache, f, indent=2)
 
-def get_average_sale_price(item_code, main_value, days_back=7):
-    """جلب متوسط سعر البيع الفعلي لنفس النوع"""
+def get_average_sale_price(item_code, main_value, days_back=3):
+    """جلب متوسط سعر البيع الفعلي لآخر 3 أيام"""
     cache = load_sales_cache()
     
     if item_code not in cache:
@@ -81,7 +77,6 @@ def get_average_sale_price(item_code, main_value, days_back=7):
 
 # ========== دالة الضريبة ==========
 def add_tax(price):
-    """إضافة 1% ضريبة على السعر"""
     return price * 1.01
 
 # ========== تحسينات الشكل ==========
@@ -106,11 +101,10 @@ st.markdown("""
 YOUR_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY5Y2VlY2Y1MTk3Zjg0NWZjOWZlZGU1YyJ9LCJpYXQiOjE3NzUxNjg3NTcsImV4cCI6MTc3Nzc2MDc1N30.nIKi8ohQAYsAVXQL9_rlRUr93TDg-G-DVOCQOrRdOtY"
 
 # ========== إعدادات التليجرام ==========
-TELEGRAM_BOT_TOKEN = "8261610629:AAFs-el5LK236x1xkDuUM8k-6NOi81X4FU8"  # حط التوكن اللي أخدته من BotFather
-TELEGRAM_CHAT_ID = "1690550033"      # حط الـ ID اللي أخدته من userinfobot
+TELEGRAM_BOT_TOKEN = "8261610629:AAFs-el5LK236x1xkDuUM8k-6NOi81X4FU8"
+TELEGRAM_CHAT_ID = "1690550033"
 
 def send_telegram_alert(title, message, price=None, profit=None):
-    """إرسال تنبيه للتليجرام"""
     text = f"🔔 *{title}*\n{message}"
     if price:
         text += f"\n💰 السعر بعد الضريبة: ${price:.2f}"
@@ -119,7 +113,6 @@ def send_telegram_alert(title, message, price=None, profit=None):
     
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     try:
-        import requests
         response = requests.post(url, json={
             "chat_id": TELEGRAM_CHAT_ID,
             "text": text,
@@ -535,6 +528,19 @@ if hours_limit > 0:
         )
     ]
 
+# إضافة متوسط البيع الفعلي و enhanced_value
+df_filtered['actual_avg_price'] = df_filtered.apply(
+    lambda row: get_average_sale_price(item_code, row['main_value'], 3), axis=1
+)
+
+df_filtered['actual_profit'] = df_filtered.apply(
+    lambda row: row['actual_avg_price'] - row['price'] if row['actual_avg_price'] else 0, axis=1
+)
+
+df_filtered['enhanced_value'] = df_filtered.apply(
+    lambda row: row['value_for_money'] * (1 + max(0, row['actual_profit'] / row['price'])) if row['actual_profit'] > 0 else row['value_for_money'], axis=1
+)
+
 # الترتيب
 if sort_by == "القيمة مقابل السعر":
     df_sorted = df_filtered.sort_values('value_for_money', ascending=False)
@@ -588,8 +594,8 @@ with tab1:
         hide_index=True,
         disabled=True
     )
-
-# التحقق من العناصر الجديدة (أقل من ساعة)
+    
+    # التحقق من العناصر الجديدة
     recent_in_table = df_sorted[df_sorted['createdAt'].apply(lambda x: 
         (datetime.now().astimezone() - datetime.fromisoformat(x.replace('Z', '+00:00'))).total_seconds() / 3600 <= 1
     )]
@@ -607,11 +613,12 @@ with tab1:
                     profit=None
                 )
         save_sent_alerts(sent_alerts)
-# TAB 2: أفضل الصفقات
+
+# TAB 2: أفضل الصفقات (مع البيع الفعلي)
 with tab2:
-    st.subheader("🏆 أفضل 10 صفقات (أعلى قيمة مقابل السعر)")
+    st.subheader("🏆 أفضل 10 صفقات (بناءً على السوق الفعلي)")
     
-    best_value = df_sorted.nlargest(10, 'value_for_money')
+    best_value = df_filtered.nlargest(10, 'enhanced_value')
     
     for i, row in best_value.iterrows():
         with st.container(border=True):
@@ -622,9 +629,14 @@ with tab2:
                     st.write(f"   {row['main_name']}: {row['main_value']} | {row['secondary_name']}: {row['secondary_value']}%")
                 else:
                     st.write(f"   {row['main_name']}: {row['main_value']}")
+                if row['actual_avg_price'] and row['actual_avg_price'] > 0:
+                    st.caption(f"📊 متوسط البيع الفعلي (آخر 3 أيام): ${row['actual_avg_price']:.2f}")
+                    if row['actual_profit'] > 0:
+                        st.caption(f"💰 الربح المتوقع من البيع الفعلي: +${row['actual_profit']:.2f}")
             with col2:
                 st.metric("الجودة", f"{row['quality_score']}%")
-                st.metric("القيمة", f"{row['value_for_money']:.2f}")
+                if row['actual_avg_price'] and row['actual_avg_price'] > 0:
+                    st.metric("الربح الفعلي", f"+{row['actual_profit']:.0f}$")
             st.caption(f"👤 البائع: {row['user']}")
 
 # TAB 3: تحليل الأسعار التاريخي
@@ -755,11 +767,11 @@ with tab4:
             max_price = similar_items['price'].max()
             count = len(similar_items)
             
-                        # جلب متوسط سعر البيع الفعلي
-            actual_avg_price = get_average_sale_price(item_code, selected['main_value'], 7)
+            # جلب متوسط سعر البيع الفعلي (آخر 3 أيام)
+            actual_avg_price = get_average_sale_price(item_code, selected['main_value'], 3)
             
             if actual_avg_price and actual_avg_price > 0:
-                st.info(f"📊 **متوسط سعر البيع الفعلي (آخر 7 أيام):** ${actual_avg_price:.2f}")
+                st.info(f"📊 **متوسط سعر البيع الفعلي (آخر 3 أيام):** ${actual_avg_price:.2f}")
                 
                 if selected['price'] <= actual_avg_price * 0.8:
                     st.success("✅ **فرصة ممتازة!** السعر أقل بـ 20% من متوسط البيع الفعلي")
@@ -771,7 +783,7 @@ with tab4:
                     st.error("❌ سعر مرتفع - أعلى من متوسط البيع الفعلي")
             else:
                 st.caption("📊 (بيانات المبيعات الفعلية غير متوفرة بعد، جاري التجميع...)")
-                
+            
             st.subheader("📊 إحصائيات السوق للعناصر المشابهة")
             
             col1, col2, col3, col4 = st.columns(4)
@@ -849,7 +861,8 @@ with tab4:
                 st.dataframe(display_similar, column_config={"price": "$"}, use_container_width=True)
         else:
             st.warning("لا توجد عناصر مشابهة كافية للتحليل (أقل من 2)")
-# TAB 5: صائد الأرباح الشامل - النسخة المصححة
+
+# TAB 5: صائد الأرباح الشامل
 with tab5:
     st.subheader("🏆 صائد الأرباح الشامل")
     st.markdown("أفضل فرص الربح مع **المواصفات الحقيقية** عشان تقدر تدور عليها في اللعبة")
@@ -916,7 +929,6 @@ with tab5:
     if all_results:
         df_temp = pd.DataFrame(all_results)
         df_temp['quality_group'] = (df_temp['quality'] // 10) * 10
-        df_temp['value_group'] = df_temp['main_value'].apply(lambda x: round(x / 10) * 10)
         
         profit_results = []
         
@@ -953,26 +965,20 @@ with tab5:
             recent_deals = df_results[df_results['hours_ago'] <= 1]
             
             if len(recent_deals) > 0:
-                # تحميل التنبيهات السابقة
                 sent_alerts = load_sent_alerts()
                 new_alerts_to_send = []
                 
-                # تحديد التنبيهات الجديدة فقط
                 for _, alert in recent_deals.iterrows():
                     alert_id = f"{alert['category']}_{alert['main_value']}_{alert['secondary_value']}_{alert['price']}"
                     if alert_id not in sent_alerts:
                         new_alerts_to_send.append(alert)
                         sent_alerts.append(alert_id)
                 
-                # حفظ التنبيهات الجديدة
                 if new_alerts_to_send:
                     save_sent_alerts(sent_alerts)
-                    
-                    # تنبيه مرئي
                     st.toast(f"🔔 {len(new_alerts_to_send)} صفقة ساخنة جديدة!", icon="🔥")
                     st.balloons()
                     
-                    # إرسال تنبيه تليجرام (أول 3 بس)
                     for alert in new_alerts_to_send[:3]:
                         send_telegram_alert(
                             title="🔥 صفقة ساخنة جديدة!",
@@ -980,7 +986,7 @@ with tab5:
                             price=add_tax(alert['price']),
                             profit=alert['expected_profit']
                         )
-                
+            
             st.success(f"🎯 {len(df_results)} فرصة ربح (آخر {comparison_time})")
             
             for i, row in df_results.iterrows():
@@ -1016,15 +1022,14 @@ with tab5:
             st.info(f"❌ لا توجد فرص ربح بـ ${min_profit_usd}+ في آخر {comparison_time}")
     else:
         st.info(f"❌ لا توجد بيانات كافية في آخر {comparison_time}")
-        
-       
+
 # ========== التوصية النهائية ==========
 st.divider()
 st.subheader("🎯 التوصية النهائية")
 
 good_deals = df_filtered[df_filtered['quality_score'] >= 60]
 if len(good_deals) > 0:
-    best = good_deals.loc[good_deals['value_for_money'].idxmax()]
+    best = good_deals.loc[good_deals['enhanced_value'].idxmax()]
     
     similar_items = df_filtered[
         (df_filtered['main_value'].between(best['main_value'] - 10, best['main_value'] + 10)) &
@@ -1047,6 +1052,15 @@ if len(good_deals) > 0:
         else:
             liquidity = "⚠️ مشبع - المنافسة عالية"
         
+        # معلومات البيع الفعلي
+        actual_info = ""
+        if best['actual_avg_price'] and best['actual_avg_price'] > 0:
+            actual_profit_margin = ((best['actual_avg_price'] - best['price']) / best['price']) * 100
+            actual_info = f"""
+            📊 **متوسط البيع الفعلي (آخر 3 أيام):** ${best['actual_avg_price']:.2f}
+            💰 **الربح المتوقع من البيع الفعلي:** +${best['actual_profit']:.2f} (نسبة {actual_profit_margin:.1f}%)
+            """
+        
         st.success(f"""
         ✅ **أفضل صفقة حالياً:**
         - 💰 سعر الشراء بعد الضريبة: ${add_tax(best['price']):,.2f} (منذ {best['time_ago']})
@@ -1055,12 +1069,13 @@ if len(good_deals) > 0:
         - 👤 البائع: {best['user']}
         
         ---
-        💎 **هامش الربح المتوقع:**
+        💎 **هامش الربح المتوقع من السوق الحالي:**
         - المتوسط في السوق: ${add_tax(avg_price):.2f}
         - الربح المتوقع: ${expected_profit:.2f} (نسبة {profit_margin:.1f}%)
         - أقل سعر حالياً: ${add_tax(min_price):.2f}
         - أعلى سعر حالياً: ${add_tax(max_price):.2f}
         
+        {actual_info}
         **حالة السوق:** {liquidity} (يوجد {similar_count} عنصر مشابه)
         """)
     else:
@@ -1070,8 +1085,6 @@ if len(good_deals) > 0:
         - 📊 الجودة: {best['quality_score']}%
         - {best['main_name']}: {best['main_value']}
         - 👤 البائع: {best['user']}
-        
-        ⚠️ **لا توجد بيانات كافية لحساب هامش الربح المتوقع**
         """)
 else:
     st.warning("⚠️ لا توجد عناصر بجودة عالية حالياً (جودة ≥ 60%)")
