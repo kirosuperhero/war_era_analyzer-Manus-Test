@@ -1,504 +1,504 @@
 {
-  "jet": [
+  "helmet6": [
+    {
+      "price": 315,
+      "time": "2026-04-20T08:21:17.225Z",
+      "main_value": 121
+    },
+    {
+      "price": 320,
+      "time": "2026-04-20T06:41:23.387Z",
+      "main_value": 143
+    },
+    {
+      "price": null,
+      "time": "2026-04-20T02:37:10.990Z",
+      "main_value": 140
+    },
+    {
+      "price": null,
+      "time": "2026-04-19T21:57:04.597Z",
+      "main_value": 122
+    },
+    {
+      "price": null,
+      "time": "2026-04-19T20:26:35.290Z",
+      "main_value": 141
+    },
     {
       "price": 380,
-      "time": "2026-04-20T10:31:39.435Z",
-      "main_value": 222
-    },
-    {
-      "price": 420,
-      "time": "2026-04-20T10:13:13.508Z",
-      "main_value": 256
-    },
-    {
-      "price": 379,
-      "time": "2026-04-20T09:11:04.651Z",
-      "main_value": 232
-    },
-    {
-      "price": 400,
-      "time": "2026-04-20T07:48:40.999Z",
-      "main_value": 279
-    },
-    {
-      "price": 400,
-      "time": "2026-04-20T07:39:14.793Z",
-      "main_value": 275
-    },
-    {
-      "price": 400,
-      "time": "2026-04-20T07:19:59.228Z",
-      "main_value": 296
-    },
-    {
-      "price": null,
-      "time": "2026-04-20T06:18:10.177Z",
-      "main_value": 272
-    },
-    {
-      "price": 400,
-      "time": "2026-04-20T05:19:53.784Z",
-      "main_value": 248
-    },
-    {
-      "price": null,
-      "time": "2026-04-20T04:22:09.670Z",
-      "main_value": 300
-    },
-    {
-      "price": null,
-      "time": "2026-04-20T02:37:10.010Z",
-      "main_value": 226
-    },
-    {
-      "price": 399.01,
-      "time": "2026-04-20T00:05:16.044Z",
-      "main_value": 246
-    },
-    {
-      "price": 396.04,
-      "time": "2026-04-19T22:08:55.601Z",
-      "main_value": 229
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T21:57:04.803Z",
-      "main_value": 300
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T21:45:05.614Z",
-      "main_value": 298
-    },
-    {
-      "price": 440,
-      "time": "2026-04-19T21:15:59.896Z",
-      "main_value": 271
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T20:50:04.714Z",
-      "main_value": 226
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T20:50:04.537Z",
-      "main_value": 227
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T20:26:35.290Z",
-      "main_value": 237
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T20:26:35.290Z",
-      "main_value": 256
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T20:26:35.290Z",
-      "main_value": 288
-    },
-    {
-      "price": 400,
-      "time": "2026-04-19T20:12:58.057Z",
-      "main_value": 252
-    },
-    {
-      "price": 418,
-      "time": "2026-04-19T19:40:58.366Z",
-      "main_value": 269
-    },
-    {
-      "price": 410,
-      "time": "2026-04-19T19:29:38.228Z",
-      "main_value": 270
+      "time": "2026-04-19T19:29:53.843Z",
+      "main_value": 142
     },
     {
       "price": null,
       "time": "2026-04-19T18:47:07.405Z",
-      "main_value": 275
+      "main_value": 126
     },
     {
-      "price": 396.03,
-      "time": "2026-04-19T18:44:21.588Z",
-      "main_value": 245
-    },
-    {
-      "price": 396.04,
-      "time": "2026-04-19T18:13:55.756Z",
-      "main_value": 252
-    },
-    {
-      "price": 396.04,
-      "time": "2026-04-19T17:31:03.660Z",
-      "main_value": 272
-    },
-    {
-      "price": 396,
-      "time": "2026-04-19T17:11:45.561Z",
-      "main_value": 254
-    },
-    {
-      "price": 395,
-      "time": "2026-04-19T16:39:22.599Z",
-      "main_value": 241
+      "price": null,
+      "time": "2026-04-19T15:38:04.651Z",
+      "main_value": 123
     },
     {
       "price": 420,
-      "time": "2026-04-19T15:59:29.175Z",
-      "main_value": 296
-    },
-    {
-      "price": 470,
-      "time": "2026-04-19T15:35:26.815Z",
-      "main_value": 294
-    },
-    {
-      "price": 395,
-      "time": "2026-04-19T15:09:28.905Z",
-      "main_value": 252
-    },
-    {
-      "price": 394.6,
-      "time": "2026-04-19T14:40:11.667Z",
-      "main_value": 241
-    },
-    {
-      "price": 396,
-      "time": "2026-04-19T11:16:29.902Z",
-      "main_value": 255
+      "time": "2026-04-19T14:32:10.404Z",
+      "main_value": 146
     },
     {
       "price": null,
-      "time": "2026-04-19T10:32:10.261Z",
-      "main_value": 244
+      "time": "2026-04-19T14:05:04.591Z",
+      "main_value": 131
     },
     {
-      "price": 430,
-      "time": "2026-04-19T09:47:27.475Z",
-      "main_value": 254
-    },
-    {
-      "price": 360,
-      "time": "2026-04-19T09:42:13.326Z",
-      "main_value": 234
-    },
-    {
-      "price": 470,
-      "time": "2026-04-19T08:47:47.148Z",
-      "main_value": 298
-    },
-    {
-      "price": 370,
-      "time": "2026-04-19T08:12:26.365Z",
-      "main_value": 236
-    },
-    {
-      "price": 358,
-      "time": "2026-04-19T07:09:26.778Z",
-      "main_value": 232
-    },
-    {
-      "price": 360,
-      "time": "2026-04-19T06:14:50.429Z",
-      "main_value": 271
+      "price": 316,
+      "time": "2026-04-19T03:30:30.795Z",
+      "main_value": 138
     },
     {
       "price": null,
-      "time": "2026-04-19T03:53:03.975Z",
-      "main_value": 239
-    },
-    {
-      "price": 512,
-      "time": "2026-04-19T03:34:13.576Z",
-      "main_value": 277
+      "time": "2026-04-18T19:08:13.599Z",
+      "main_value": 139
     },
     {
       "price": null,
-      "time": "2026-04-19T03:07:04.197Z",
-      "main_value": 281
-    },
-    {
-      "price": null,
-      "time": "2026-04-19T03:07:04.197Z",
-      "main_value": 276
-    },
-    {
-      "price": 396,
-      "time": "2026-04-18T21:57:38.126Z",
-      "main_value": 258
-    },
-    {
-      "price": 395,
-      "time": "2026-04-18T20:14:56.023Z",
-      "main_value": 258
-    },
-    {
-      "price": 400,
-      "time": "2026-04-18T19:33:27.246Z",
-      "main_value": 258
-    },
-    {
-      "price": 410,
-      "time": "2026-04-18T19:33:23.450Z",
-      "main_value": 254
-    },
-    {
-      "price": 399.99,
-      "time": "2026-04-18T19:33:04.453Z",
-      "main_value": 247
-    },
-    {
-      "price": null,
-      "time": "2026-04-18T19:08:13.598Z",
-      "main_value": 231
+      "time": "2026-04-18T19:08:13.599Z",
+      "main_value": 146
     },
     {
       "price": null,
       "time": "2026-04-18T19:08:12.070Z",
-      "main_value": 241
+      "main_value": 126
+    },
+    {
+      "price": 300,
+      "time": "2026-04-18T18:31:03.075Z",
+      "main_value": 128
     },
     {
       "price": null,
-      "time": "2026-04-18T19:08:12.070Z",
-      "main_value": 238
-    },
-    {
-      "price": null,
-      "time": "2026-04-18T19:08:12.069Z",
-      "main_value": 285
-    },
-    {
-      "price": 395,
-      "time": "2026-04-18T19:00:38.569Z",
-      "main_value": 262
-    },
-    {
-      "price": 395,
-      "time": "2026-04-18T19:00:34.677Z",
-      "main_value": 252
-    },
-    {
-      "price": 388,
-      "time": "2026-04-18T18:57:34.664Z",
-      "main_value": 247
-    },
-    {
-      "price": 394,
-      "time": "2026-04-18T18:39:45.085Z",
-      "main_value": 277
-    },
-    {
-      "price": 574.257,
-      "time": "2026-04-18T18:39:20.679Z",
-      "main_value": 291
-    },
-    {
-      "price": 395,
-      "time": "2026-04-18T18:33:31.685Z",
-      "main_value": 229
-    },
-    {
-      "price": 415,
-      "time": "2026-04-18T16:05:27.465Z",
-      "main_value": 257
-    },
-    {
-      "price": 390,
-      "time": "2026-04-18T15:14:15.961Z",
-      "main_value": 252
-    },
-    {
-      "price": 396,
-      "time": "2026-04-18T15:14:14.010Z",
-      "main_value": 237
-    },
-    {
-      "price": 550,
-      "time": "2026-04-18T15:07:16.995Z",
-      "main_value": 277
-    },
-    {
-      "price": 388,
-      "time": "2026-04-18T14:53:48.549Z",
-      "main_value": 228
+      "time": "2026-04-18T13:47:12.097Z",
+      "main_value": 125
     },
     {
       "price": null,
       "time": "2026-04-18T13:47:10.700Z",
-      "main_value": 282
+      "main_value": 122
     },
     {
       "price": null,
-      "time": "2026-04-18T12:29:04.504Z",
-      "main_value": 277
+      "time": "2026-04-18T13:47:10.700Z",
+      "main_value": 145
     },
     {
-      "price": 397,
-      "time": "2026-04-18T12:19:50.567Z",
-      "main_value": 234
+      "price": null,
+      "time": "2026-04-18T00:52:04.825Z",
+      "main_value": 146
     },
     {
-      "price": 495.04,
-      "time": "2026-04-18T11:48:17.427Z",
-      "main_value": 274
+      "price": null,
+      "time": "2026-04-17T23:34:10.437Z",
+      "main_value": 148
     },
     {
-      "price": 396.1,
-      "time": "2026-04-18T10:16:52.218Z",
-      "main_value": 235
+      "price": null,
+      "time": "2026-04-17T22:55:03.652Z",
+      "main_value": 126
     },
     {
-      "price": 450,
-      "time": "2026-04-18T09:22:31.268Z",
-      "main_value": 293
+      "price": null,
+      "time": "2026-04-17T22:23:04.003Z",
+      "main_value": 136
+    },
+    {
+      "price": 299,
+      "time": "2026-04-17T21:45:52.685Z",
+      "main_value": 149
+    },
+    {
+      "price": null,
+      "time": "2026-04-17T18:23:05.009Z",
+      "main_value": 146
+    },
+    {
+      "price": 330,
+      "time": "2026-04-17T18:14:12.870Z",
+      "main_value": 134
+    },
+    {
+      "price": null,
+      "time": "2026-04-17T18:01:04.898Z",
+      "main_value": 130
+    },
+    {
+      "price": 319,
+      "time": "2026-04-17T16:13:48.029Z",
+      "main_value": 121
+    },
+    {
+      "price": 319,
+      "time": "2026-04-17T13:50:42.903Z",
+      "main_value": 126
+    },
+    {
+      "price": 386,
+      "time": "2026-04-17T13:46:39.422Z",
+      "main_value": 145
+    },
+    {
+      "price": null,
+      "time": "2026-04-17T07:48:04.471Z",
+      "main_value": 140
+    },
+    {
+      "price": 580,
+      "time": "2026-04-17T00:26:46.356Z",
+      "main_value": 150
+    },
+    {
+      "price": null,
+      "time": "2026-04-17T00:17:08.723Z",
+      "main_value": 147
+    },
+    {
+      "price": 425,
+      "time": "2026-04-16T22:33:22.781Z",
+      "main_value": 150
+    },
+    {
+      "price": 435,
+      "time": "2026-04-16T18:37:29.927Z",
+      "main_value": 149
+    },
+    {
+      "price": 430,
+      "time": "2026-04-16T17:14:31.087Z",
+      "main_value": 149
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T17:04:38.891Z",
+      "main_value": 122
+    },
+    {
+      "price": 325,
+      "time": "2026-04-16T16:23:43.230Z",
+      "main_value": 128
+    },
+    {
+      "price": 310,
+      "time": "2026-04-16T16:21:06.708Z",
+      "main_value": 127
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T13:47:04.671Z",
+      "main_value": 128
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T13:47:04.671Z",
+      "main_value": 136
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T05:01:04.011Z",
+      "main_value": 137
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T05:01:04.011Z",
+      "main_value": 141
+    },
+    {
+      "price": null,
+      "time": "2026-04-16T03:59:05.083Z",
+      "main_value": 129
+    },
+    {
+      "price": 366.337,
+      "time": "2026-04-15T22:27:53.710Z",
+      "main_value": 142
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T22:18:05.226Z",
+      "main_value": 137
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T22:11:38.450Z",
+      "main_value": 149
+    },
+    {
+      "price": 400,
+      "time": "2026-04-15T18:26:58.760Z",
+      "main_value": 147
+    },
+    {
+      "price": 399,
+      "time": "2026-04-15T17:23:10.749Z",
+      "main_value": 148
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T16:07:47.979Z",
+      "main_value": 149
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T15:33:04.075Z",
+      "main_value": 124
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T09:39:05.759Z",
+      "main_value": 132
+    },
+    {
+      "price": 310,
+      "time": "2026-04-15T07:27:39.368Z",
+      "main_value": 130
+    },
+    {
+      "price": null,
+      "time": "2026-04-15T00:59:03.911Z",
+      "main_value": 132
+    },
+    {
+      "price": null,
+      "time": "2026-04-14T22:37:09.337Z",
+      "main_value": 130
+    },
+    {
+      "price": null,
+      "time": "2026-04-14T19:33:11.194Z",
+      "main_value": 143
+    },
+    {
+      "price": null,
+      "time": "2026-04-14T12:17:05.774Z",
+      "main_value": 144
+    },
+    {
+      "price": 326.733,
+      "time": "2026-04-14T08:57:30.388Z",
+      "main_value": 134
+    },
+    {
+      "price": 326.732,
+      "time": "2026-04-14T08:07:20.951Z",
+      "main_value": 134
+    },
+    {
+      "price": 330,
+      "time": "2026-04-14T04:28:15.079Z",
+      "main_value": 137
+    },
+    {
+      "price": 374,
+      "time": "2026-04-13T22:56:27.973Z",
+      "main_value": 142
+    },
+    {
+      "price": 306.931,
+      "time": "2026-04-13T19:14:47.319Z",
+      "main_value": 126
+    },
+    {
+      "price": 305,
+      "time": "2026-04-13T19:14:44.916Z",
+      "main_value": 121
+    },
+    {
+      "price": 425,
+      "time": "2026-04-13T15:21:34.105Z",
+      "main_value": 149
+    },
+    {
+      "price": 326.732,
+      "time": "2026-04-13T14:25:32.994Z",
+      "main_value": 126
+    },
+    {
+      "price": 377,
+      "time": "2026-04-13T09:08:33.726Z",
+      "main_value": 143
+    },
+    {
+      "price": null,
+      "time": "2026-04-13T08:31:08.723Z",
+      "main_value": 123
+    },
+    {
+      "price": null,
+      "time": "2026-04-13T07:44:09.414Z",
+      "main_value": 123
+    },
+    {
+      "price": 306.931,
+      "time": "2026-04-13T02:36:30.726Z",
+      "main_value": 123
+    },
+    {
+      "price": 405.941,
+      "time": "2026-04-13T00:55:07.842Z",
+      "main_value": 148
+    },
+    {
+      "price": 444.5,
+      "time": "2026-04-12T22:37:20.037Z",
+      "main_value": 149
+    },
+    {
+      "price": null,
+      "time": "2026-04-12T20:44:39.177Z",
+      "main_value": 128
+    },
+    {
+      "price": 386.139,
+      "time": "2026-04-12T15:53:15.077Z",
+      "main_value": 145
+    },
+    {
+      "price": 390,
+      "time": "2026-04-12T15:43:59.802Z",
+      "main_value": 145
+    },
+    {
+      "price": 354,
+      "time": "2026-04-12T10:42:34.219Z",
+      "main_value": 142
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T22:16:04.794Z",
+      "main_value": 138
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T20:50:10.149Z",
+      "main_value": 126
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T17:21:04.187Z",
+      "main_value": 126
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T16:01:05.051Z",
+      "main_value": 144
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T15:51:04.577Z",
+      "main_value": 130
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T14:59:13.964Z",
+      "main_value": 147
+    },
+    {
+      "price": 392.5,
+      "time": "2026-04-11T14:45:26.869Z",
+      "main_value": 147
+    },
+    {
+      "price": 387,
+      "time": "2026-04-11T09:03:19.593Z",
+      "main_value": 141
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T07:12:04.851Z",
+      "main_value": 127
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T07:12:04.851Z",
+      "main_value": 145
+    },
+    {
+      "price": null,
+      "time": "2026-04-11T01:27:09.877Z",
+      "main_value": 126
     },
     {
       "price": 360,
-      "time": "2026-04-18T09:18:12.780Z",
-      "main_value": 228
+      "time": "2026-04-11T00:30:39.518Z",
+      "main_value": 122
     },
     {
       "price": null,
-      "time": "2026-04-18T07:02:09.750Z",
-      "main_value": 249
-    },
-    {
-      "price": 550,
-      "time": "2026-04-18T06:59:03.972Z",
-      "main_value": 290
+      "time": "2026-04-10T20:05:15.053Z",
+      "main_value": 133
     },
     {
       "price": null,
-      "time": "2026-04-18T06:14:03.977Z",
-      "main_value": 264
+      "time": "2026-04-10T16:19:04.641Z",
+      "main_value": 125
     },
     {
-      "price": 375,
-      "time": "2026-04-18T06:00:22.541Z",
-      "main_value": 236
+      "price": null,
+      "time": "2026-04-10T12:29:41.183Z",
+      "main_value": 127
+    },
+    {
+      "price": null,
+      "time": "2026-04-10T12:29:41.183Z",
+      "main_value": 129
+    },
+    {
+      "price": null,
+      "time": "2026-04-10T12:29:41.183Z",
+      "main_value": 141
     },
     {
       "price": 400,
-      "time": "2026-04-18T05:58:17.668Z",
-      "main_value": 253
+      "time": "2026-04-10T07:10:13.030Z",
+      "main_value": 140
     },
     {
       "price": null,
-      "time": "2026-04-18T04:34:09.477Z",
-      "main_value": 287
+      "time": "2026-04-10T07:06:04.705Z",
+      "main_value": 136
     },
     {
-      "price": 400,
-      "time": "2026-04-18T01:54:56.690Z",
-      "main_value": 227
+      "price": 465.347,
+      "time": "2026-04-10T05:50:51.146Z",
+      "main_value": 148
     },
     {
-      "price": null,
-      "time": "2026-04-18T00:52:04.825Z",
-      "main_value": 270
-    },
-    {
-      "price": null,
-      "time": "2026-04-18T00:52:04.825Z",
-      "main_value": 227
-    },
-    {
-      "price": 396,
-      "time": "2026-04-18T00:50:08.966Z",
-      "main_value": 247
-    },
-    {
-      "price": 427,
-      "time": "2026-04-17T23:25:29.146Z",
-      "main_value": 233
+      "price": 372,
+      "time": "2026-04-10T05:36:43.128Z",
+      "main_value": 126
     },
     {
       "price": null,
-      "time": "2026-04-17T22:56:05.025Z",
-      "main_value": 231
+      "time": "2026-04-10T05:07:05.081Z",
+      "main_value": 130
     },
     {
       "price": null,
-      "time": "2026-04-17T22:56:05.025Z",
-      "main_value": 228
+      "time": "2026-04-10T05:07:05.081Z",
+      "main_value": 137
     },
     {
       "price": null,
-      "time": "2026-04-17T21:47:04.135Z",
-      "main_value": 233
+      "time": "2026-04-10T00:54:03.994Z",
+      "main_value": 130
     },
     {
-      "price": 388,
-      "time": "2026-04-17T21:46:47.373Z",
-      "main_value": 262
-    },
-    {
-      "price": 470.297,
-      "time": "2026-04-17T21:27:34.814Z",
-      "main_value": 274
+      "price": 376,
+      "time": "2026-04-10T00:21:14.038Z",
+      "main_value": 126
     },
     {
       "price": null,
-      "time": "2026-04-17T20:52:04.842Z",
-      "main_value": 242
-    },
-    {
-      "price": 540,
-      "time": "2026-04-17T19:51:18.552Z",
-      "main_value": 262
-    },
-    {
-      "price": 405,
-      "time": "2026-04-17T18:13:56.848Z",
-      "main_value": 255
-    },
-    {
-      "price": 399.9,
-      "time": "2026-04-17T17:25:08.877Z",
-      "main_value": 242
-    },
-    {
-      "price": 371.287,
-      "time": "2026-04-17T16:13:40.785Z",
-      "main_value": 227
-    },
-    {
-      "price": 400,
-      "time": "2026-04-17T15:37:19.124Z",
-      "main_value": 250
-    },
-    {
-      "price": null,
-      "time": "2026-04-17T15:31:04.235Z",
-      "main_value": 283
-    },
-    {
-      "price": 350,
-      "time": "2026-04-17T15:08:56.602Z",
-      "main_value": 289
-    },
-    {
-      "price": null,
-      "time": "2026-04-17T14:36:04.204Z",
-      "main_value": 255
-    },
-    {
-      "price": 396,
-      "time": "2026-04-17T14:15:13.930Z",
-      "main_value": 239
-    },
-    {
-      "price": 400,
-      "time": "2026-04-17T14:11:22.055Z",
-      "main_value": 239
-    },
-    {
-      "price": 346.534,
-      "time": "2026-04-17T14:10:29.933Z",
-      "main_value": 263
+      "time": "2026-04-09T22:20:06.307Z",
+      "main_value": 127
     }
   ]
 }
