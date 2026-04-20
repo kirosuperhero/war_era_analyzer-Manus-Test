@@ -1,0 +1,49 @@
+I want your professional opinion as an economist/trader, not just a coder.
+
+**Context:**
+I have a market flipping tool for War Era game. Users buy items cheap and resell them. The current "Best Deals" logic uses "value_for_money = quality/price" which is not working well for flipping.
+
+**What I need:**
+A Deal Score formula that identifies the best items to BUY and FLIP for profit.
+
+**Factors to consider:**
+
+1. **Profit Margin** - Difference between current price and actual average selling price (from transaction history)
+   - IMPORTANT: If price difference is very small (e.g., $1, $2, $3 difference), this is NOT a real flipping opportunity
+   - Minimum threshold should be around 10-15% below average selling price
+
+2. **Liquidity** - How many similar items are in the market (low supply = better for seller)
+
+3. **Sell Velocity** - How fast similar items get sold (from transaction history)
+
+4. **Scarcity** - Number of unique sellers (fewer sellers = less competition)
+
+5. **Freshness** - How recently the item was listed
+   - This should have HIGHER weight than I initially thought
+   - Items listed in last 5-10 minutes are prime sniping opportunities
+   - Items older than 2-3 hours lose value significantly
+   - Reason: New listings haven't been seen by many buyers yet
+
+**My proposed formula:**
+Deal Score = (Margin × 0.35) + (Liquidity × 0.20) + (Velocity × 0.15) + (Scarcity × 0.10) + (Freshness × 0.20)
+
+**I increased Freshness weight to 20% because:**
+- A fresh listing (5-10 minutes old) is much more valuable than an older one
+- Sniping opportunity before others see it
+- Items with small price differences ($1-3) are NOT real opportunities
+
+**My questions to you:**
+
+1. Do you agree with this formula and weights? What would YOU suggest?
+
+2. How would YOU calculate Freshness decay? (Linear? Exponential? After 2 hours it's worthless?)
+
+3. What minimum profit margin (%) should we require before considering an item a "deal"?
+
+4. How should we handle items that are priced only $1-2 below market? (Should we ignore them?)
+
+5. What's missing from this formula?
+
+**Don't write code yet. First, give me your analysis and recommendations. Then we'll implement.**
+
+Be honest and critical. I want the most effective flipping tool possible.
