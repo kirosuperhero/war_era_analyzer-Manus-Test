@@ -459,6 +459,13 @@
       "user": "688f741e",
       "main_value": 221,
       "secondary_value": 48
+    },
+    {
+      "price": 391.0,
+      "time": "2026-04-20T15:56:41.233698",
+      "user": "688f741e",
+      "main_value": 221,
+      "secondary_value": 48
     }
   ],
   "jet_A255_C50": [
@@ -486,6 +493,15 @@
       "user": "69bae21b",
       "main_value": 278,
       "secondary_value": 46
+    }
+  ],
+  "jet_A230_C44": [
+    {
+      "price": 396.04,
+      "time": "2026-04-20T16:04:34.822566",
+      "user": "6940c8fa",
+      "main_value": 230,
+      "secondary_value": 43
     }
   ]
 }
