@@ -1,14 +1,6 @@
 import streamlit as st
 import sys
 import traceback
-
-try:
-    # باقي الكود الحالي (بما في ذلك set_page_config وكل شيء)
-    # ...
-except Exception as e:
-    with open("error.log", "w") as f:
-        f.write(traceback.format_exc())
-    raise
 import pandas as pd
 import plotly.express as px
 import requests
